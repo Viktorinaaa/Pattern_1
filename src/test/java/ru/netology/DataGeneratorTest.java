@@ -15,6 +15,7 @@ import ru.netology.DataGenerator.*;
 import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
@@ -49,18 +50,13 @@ class DataGeneratorTest {
                 get(0).
                 should(exactText("Встреча успешно запланирована на " +
                         firstMeetingDate));
-
-        //$$(".icon-button__content").get(1).click();
         $x("//input[@pattern='[0-9.]*']").doubleClick().sendKeys(secondMeetingDate);
-
         $$(By.className("button__text")).filter(visible).first().click();
         $x("//*[contains(@data-test-id,'replan-notification')]").should(appear, Duration.ofSeconds(15));
         $$(".notification__title").get(1).shouldHave(exactText("Необходимо подтверждение"));
         $$(By.className("button__text")).get(1).click();
-
         $x("//*[contains(@data-test-id,'success-notification')]").should(appear, Duration.ofSeconds(15));
         $$(".notification__title").filter(visible).get(0).shouldHave(exactText("Успешно!"));
-
         $$(".notification__content").filter(visible).get(0).
                 should(exactText("Встреча успешно запланирована на " +
                         secondMeetingDate));
